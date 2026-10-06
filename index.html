@@ -1,966 +1,742 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeFlow | Visual Development Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9fbfd;
-        }
-        
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header & Navigation */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            color: #4361ee;
-            font-size: 28px;
-            margin-right: 10px;
-        }
-        
-        .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .logo-text span {
-            color: #4361ee;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #4361ee;
-        }
-        
-        .cta-button {
-            background-color: #4361ee;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        .cta-button:hover {
-            background-color: #3a56d4;
-            transform: translateY(-2px);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #f9fbfd 100%);
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
-        
-        .hero-text h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .hero-text h1 span {
-            color: #4361ee;
-        }
-        
-        .hero-text p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .secondary-button {
-            background-color: white;
-            color: #4361ee;
-            border: 2px solid #4361ee;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .secondary-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15);
-        }
-        
-        /* Features Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: #222;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            background-color: #eef2ff;
-            color: #4361ee;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 0;
-            background-color: #f0f4ff;
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit-item {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .benefit-icon {
-            color: #4361ee;
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-        
-        .benefit-item h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .benefit-item p {
-            color: #666;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .testimonial {
-            background: #f9fbfd;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 30px;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4361ee;
-            font-size: 24px;
-        }
-        
-        .author-info h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* Pricing Section */
-        .pricing {
-            padding: 100px 0;
-            background-color: #f9fbfd;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .pricing-card {
-            background: white;
-            border-radius: 10px;
-            padding: 40px 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .pricing-card.featured {
-            border-top: 5px solid #4361ee;
-            transform: scale(1.05);
-            position: relative;
-        }
-        
-        .featured-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4361ee;
-            color: white;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .plan-name {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .plan-price {
-            font-size: 48px;
-            font-weight: 700;
-            color: #4361ee;
-            margin-bottom: 20px;
-        }
-        
-        .plan-price span {
-            font-size: 16px;
-            color: #777;
-        }
-        
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .plan-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
-        }
-        
-        .plan-features li:last-child {
-            border-bottom: none;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-            text-align: center;
-            color: white;
-        }
-        
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .cta-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .cta-section .cta-button {
-            background-color: white;
-            color: #4361ee;
-            font-size: 16px;
-            padding: 15px 40px;
-        }
-        
-        .cta-section .cta-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 70px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column h3 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 25px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: #4361ee;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            font-size: 14px;
-            color: #888;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-                text-align: center;
-            }
-            
-            .hero-text p {
-                margin: 0 auto 30px;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-text h1 {
-                font-size: 36px;
-            }
-            
-            .section-title h2 {
-                font-size: 30px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-buttons button {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 130px 0 80px;
-            }
-            
-            .features, .benefits, .testimonials, .pricing, .cta-section {
-                padding: 70px 0;
-            }
-            
-            .feature-card, .testimonial {
-                padding: 25px;
-            }
-            
-            .plan-price {
-                font-size: 36px;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>垃圾分类 · 共建绿色家园</title>
+<script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+<script src="https://aisearch-task.bj.bcebos.com/static/echarts-5.6.0.min.js"></script>
+<style>
+  :root{
+    --green-1:#10b981;
+    --green-2:#059669;
+    --green-3:#34d399;
+    --blue:#3b82f6;
+    --red:#ef4444;
+    --gray:#6b7280;
+    --cream:#f0fdf4;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',sans-serif;
+    background:linear-gradient(135deg,#f0fdf4 0%,#ecfeff 40%,#f0f9ff 100%);
+    color:#0f172a;
+  }
+  .hero-bg{
+    background:
+      radial-gradient(circle at 15% 20%,rgba(16,185,129,.15),transparent 40%),
+      radial-gradient(circle at 85% 30%,rgba(59,130,246,.12),transparent 45%),
+      linear-gradient(135deg,#ecfdf5,#f0fdfa);
+  }
+  .glass{
+    background:rgba(255,255,255,.7);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.6);
+  }
+  .bin-card{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;}
+  .bin-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px -12px rgba(16,185,129,.25);}
+  .nav-pill{transition:all .25s;}
+  .nav-pill:hover{background:rgba(16,185,129,.12);color:#059669;}
+  details[open] summary .arrow{transform:rotate(180deg);}
+  .arrow{transition:transform .3s;}
+  #qOptions{position:relative;z-index:60;}
+.quiz-opt{transition:all .2s;position:relative;z-index:60;cursor:pointer;pointer-events:auto;display:block;width:100%;}
+#quizBox{isolation:isolate;position:relative;z-index:10;}
+#quiz .glass{position:relative;z-index:10;}
+  .quiz-opt:hover{transform:translateX(4px);border-color:#10b981;}
+  .quiz-opt.correct{background:#d1fae5;border-color:#10b981;color:#065f46;}
+  .quiz-opt.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b;}
+  .stat-num{font-variant-numeric:tabular-nums;}
+  .wave-sep{
+    height:60px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z'/%3E%3C/svg%3E") no-repeat center/cover;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+  }
+  .floating{position:relative;z-index:1;overflow:visible;}
+  .tag-chip{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:500;}
+  .grid-pattern{
+    background-image:radial-gradient(rgba(16,185,129,.08) 1px,transparent 1px);
+    background-size:24px 24px;
+  }
+</style>
 </head>
-<body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                    <div class="logo-text">Code<span>Flow</span></div>
-                </div>
-                
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#">Resources</a></li>
-                </ul>
-                
-                <button class="cta-button">Start Free Trial</button>
-                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-            </nav>
-        </div>
-    </header>
+<body class="min-h-screen">
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Build Apps Faster With <span>Visual Development</span></h1>
-                    <p>CodeFlow empowers teams to create enterprise-grade applications with minimal coding. Drag, drop, and connect components to build powerful web and mobile apps in record time.</p>
-                    <div class="hero-buttons">
-                        <button class="cta-button">Start Building Free</button>
-                        <button class="secondary-button">Watch Demo</button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CodeFlow Platform Interface">
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ===== NAV ===== -->
+<nav class="sticky top-0 z-40 glass shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white shadow-md">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18l-2 13H5L3 6z"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+      </div>
+      <span class="font-bold text-lg text-emerald-700 tracking-wide">绿动分类</span>
+    </div>
+    <div class="hidden md:flex items-center gap-1 text-sm text-slate-600">
+      <a href="#why" class="nav-pill px-3 py-2 rounded-lg">为什么分类</a>
+      <a href="#how" class="nav-pill px-3 py-2 rounded-lg">正确分类</a>
+      <a href="#promote" class="nav-pill px-3 py-2 rounded-lg">推广方法</a>
+      <a href="#help" class="nav-pill px-3 py-2 rounded-lg">困难求助</a>
+      <a href="#quiz" class="ml-2 px-4 py-2 rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 shadow">分类测试</a>
+    </div>
+  </div>
+</nav>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Powerful Features for Rapid Development</h2>
-                <p>CodeFlow provides all the tools you need to build, deploy, and scale applications without writing extensive code.</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-th-large"></i>
-                    </div>
-                    <h3>Visual Builder</h3>
-                    <p>Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database Integration</h3>
-                    <p>Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Cross-Platform</h3>
-                    <p>Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Extensible with Code</h3>
-                    <p>Add custom functionality with JavaScript when needed. Our platform doesn't limit your creativity or complexity.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>One-Click Deployment</h3>
-                    <p>Deploy to cloud or on-premises with a single click. Automatic scaling and monitoring included.</p>
-                </div>
-            </div>
+<!-- ===== HERO ===== -->
+<section class="hero-bg relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4 pt-14 pb-20 md:pt-20 md:pb-28 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="tag-chip bg-emerald-100 text-emerald-700 mb-5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+        环保公益 · 全民行动
+      </span>
+      <h1 class="text-4xl md:text-6xl font-black leading-tight text-slate-800">
+        做好<span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">垃圾分类</span><br/>
+        让地球少一份负担
+      </h1>
+      <p class="mt-5 text-[16px] md:text-lg text-slate-600 leading-relaxed max-w-xl">
+        每一次正确投放，都是对自然的温柔回馈。了解分类知识、养成分类习惯、带动身边人——让"分"成为生活的一部分，让资源重归循环。
+      </p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href="#how" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-semibold shadow-lg shadow-emerald-500/25 transition">立即学习分类 →</a>
+        <a href="#quiz" class="px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold border border-slate-200 transition">测测我的水平</a>
+      </div>
+      <div class="mt-8 flex items-center gap-6 text-sm text-slate-500">
+        <div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">♻️</div>资源再利用</div>
+        <div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">🌍</div>保护环境</div>
+        <div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">💚</div>人人可做</div>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="absolute -top-6 -left-6 w-32 h-32 bg-emerald-200/40 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-8 -right-4 w-40 h-40 bg-teal-200/50 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative glass rounded-3xl p-6 shadow-xl floating">
+        <img src="http://img1.baidu.com/it/u=149435787,3004353108&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=595" alt="垃圾分类宣传" class="w-full h-[280px] md:h-[340px] object-cover rounded-2xl" />
+        <div class="mt-4 grid grid-cols-3 gap-3 text-center">
+          <div class="bg-emerald-50 rounded-xl p-3">
+            <div class="text-xl font-black text-emerald-600 stat-num" data-count="30">0</div>
+            <div class="text-xs text-slate-500 mt-1">% 可回收物利用率</div>
+          </div>
+          <div class="bg-teal-50 rounded-xl p-3">
+            <div class="text-xl font-black text-teal-600 stat-num" data-count="500">0</div>
+            <div class="text-xs text-slate-500 mt-1">kg/年/人垃圾减量</div>
+          </div>
+          <div class="bg-sky-50 rounded-xl p-3">
+            <div class="text-xl font-black text-sky-600 stat-num" data-count="4">0</div>
+            <div class="text-xs text-slate-500 mt-1">大类别一学就会</div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose CodeFlow?</h2>
-                <p>Join thousands of companies accelerating their digital transformation with low-code development.</p>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>10x Faster Development</h3>
-                    <p>Build applications in days instead of months with visual development tools.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Reduce Costs by 70%</h3>
-                    <p>Lower development and maintenance costs with fewer resources required.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Citizen Developers</h3>
-                    <p>Enable business users to build solutions with minimal IT assistance.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Scale Effortlessly</h3>
-                    <p>From prototype to enterprise-scale applications with the same platform.</p>
-                </div>
-            </div>
+<div class="wave-sep"></div>
+
+<!-- ===== 为什么要垃圾分类 ===== -->
+<section id="why" class="py-16 md:py-24 bg-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="tag-chip bg-emerald-100 text-emerald-700">Chapter 01</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3 text-slate-800">为什么要进行垃圾分类？</h2>
+      <p class="mt-3 text-slate-600 text-[16px] leading-relaxed">垃圾是"放错地方的资源"。看似随手一扔，背后却连着土地、空气、水源与我们的健康。</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass rounded-2xl p-5 border-l-4 border-emerald-500">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-2xl mb-3">♻️</div>
+          <h3 class="font-bold text-slate-800 mb-2">节约资源</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">1吨废纸可再造850公斤好纸，相当于少砍17棵大树；1吨塑料瓶可回炼600公斤柴油。</p>
         </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Trusted by Industry Leaders</h2>
-                <p>See what our customers have to say about their experience with CodeFlow.</p>
-            </div>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SC</div>
-                        <div class="author-info">
-                            <h4>Sarah Chen</h4>
-                            <p>CTO, TechGrowth Inc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="glass rounded-2xl p-5 border-l-4 border-sky-500 mt-6">
+          <div class="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center text-2xl mb-3">🌱</div>
+          <h3 class="font-bold text-slate-800 mb-2">保护环境</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">减少填埋渗滤液和焚烧废气污染，降低土壤和水源重金属、微塑料风险。</p>
         </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
-            </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="plan-name">Starter</h3>
-                    <div class="plan-price">$29<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 5 users</li>
-                        <li>10 GB storage</li>
-                        <li>Basic components</li>
-                        <li>Community support</li>
-                        <li>1 production app</li>
-                    </ul>
-                    <button class="secondary-button">Get Started</button>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="featured-badge">Most Popular</div>
-                    <h3 class="plan-name">Professional</h3>
-                    <div class="plan-price">$89<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 25 users</li>
-                        <li>100 GB storage</li>
-                        <li>All components</li>
-                        <li>Priority support</li>
-                        <li>10 production apps</li>
-                        <li>Custom branding</li>
-                    </ul>
-                    <button class="cta-button">Try Free for 14 Days</button>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3 class="plan-name">Enterprise</h3>
-                    <div class="plan-price">Custom</div>
-                    <ul class="plan-features">
-                        <li>Unlimited users</li>
-                        <li>Unlimited storage</li>
-                        <li>All features included</li>
-                        <li>24/7 dedicated support</li>
-                        <li>Unlimited apps</li>
-                        <li>On-premises option</li>
-                    </ul>
-                    <button class="secondary-button">Contact Sales</button>
-                </div>
-            </div>
+        <div class="glass rounded-2xl p-5 border-l-4 border-amber-500">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-2xl mb-3">⚡</div>
+          <h3 class="font-bold text-slate-800 mb-2">减少碳排放</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">分类回收再利用相比原生材料生产可减少 60%–90% 的能源消耗和碳排放。</p>
         </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Start Building Today</h2>
-            <p>Join over 10,000 companies that use CodeFlow to accelerate their application development. No credit card required for the free trial.</p>
-            <button class="cta-button">Get Started for Free</button>
+        <div class="glass rounded-2xl p-5 border-l-4 border-rose-500 mt-6">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center text-2xl mb-3">🏥</div>
+          <h3 class="font-bold text-slate-800 mb-2">守护健康</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">有害垃圾单独处置，避免电池、灯管、过期药品中的重金属和毒物进入食物链。</p>
         </div>
-    </section>
+      </div>
+      <div class="glass rounded-2xl p-6 shadow-lg">
+        <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+          <svg width="20" height="20" class="text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+          中国城市生活垃圾年产生量趋势（单位：亿吨）
+        </h3>
+        <div id="chartWhy" style="height:300px;"></div>
+        <p class="text-xs text-slate-500 mt-3">数据来源：住建部及行业公开数据估算。垃圾总量持续攀升，源头分类刻不容缓。</p>
+      </div>
+    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <div class="logo">
-                        <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                        <div class="logo-text">Code<span>Flow</span></div>
-                    </div>
-                    <p style="margin-top: 20px; color: #aaa;">The leading visual development platform for building enterprise applications with minimal coding.</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Product</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Use Cases</a></li>
-                        <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Roadmap</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 CodeFlow. All rights reserved.</p>
-            </div>
+    <div class="mt-10 glass rounded-2xl p-6 md:p-8 bg-gradient-to-r from-emerald-50 to-teal-50">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-2xl shrink-0">💡</div>
+        <div>
+          <h3 class="font-bold text-lg text-slate-800">你知道吗？</h3>
+          <p class="mt-2 text-slate-700 leading-relaxed text-[16px]">
+            一节一号电池烂在地里，能使 <b class="text-emerald-700">1平方米</b> 的土地永久失去利用价值；一颗纽扣电池可污染 <b class="text-emerald-700">60万升</b> 水，相当于一个人一生的饮水量。分类一小步，文明一大步。
+          </p>
         </div>
-    </footer>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            
-            // Adjust for mobile
-            if (window.innerWidth <= 768) {
-                if (navLinks.style.display === 'flex') {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '80px';
-                    navLinks.style.left = '0';
-                    navLinks.style.width = '100%';
-                    navLinks.style.backgroundColor = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                    
-                    const navItems = document.querySelectorAll('.nav-links li');
-                    navItems.forEach(item => {
-                        item.style.margin = '10px 0';
-                    });
-                }
-            }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if(window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').style.display = 'none';
-                    }
-                }
-            });
-        });
-        
-        // Simple testimonial slider
-        const testimonials = [
-            {
-                text: "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.",
-                name: "Sarah Chen",
-                position: "CTO, TechGrowth Inc.",
-                initials: "SC"
-            },
-            {
-                text: "We reduced our app development time by 80% using CodeFlow. The visual interface made it easy for our analysts to build data dashboards without waiting for IT resources.",
-                name: "Marcus Johnson",
-                position: "Director of Operations, DataCorp",
-                initials: "MJ"
-            },
-            {
-                text: "As a non-technical founder, CodeFlow allowed me to build our MVP in just 2 months. I could test ideas quickly and iterate based on user feedback without deep coding knowledge.",
-                name: "Lisa Wang",
-                position: "Founder, StartupLabs",
-                initials: "LW"
-            }
-        ];
-        
-        let currentTestimonial = 0;
-        const testimonialElement = document.querySelector('.testimonial');
-        
-        function rotateTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            updateTestimonial();
-        }
-        
-        function updateTestimonial() {
-            const testimonial = testimonials[currentTestimonial];
-            testimonialElement.innerHTML = `
-                <div class="testimonial-text">"${testimonial.text}"</div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">${testimonial.initials}</div>
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p>${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(rotateTestimonial, 5000);
-        
-        // CTA button interactions
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.');
-            });
-        });
-        
-        // Pricing card interactions
-        document.querySelectorAll('.pricing-card button').forEach(button => {
-            button.addEventListener('click', function() {
-                const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
-                alert(`You selected the ${planName} plan. In a real implementation, you would be redirected to the checkout process.`);
-            });
-        });
-    </script>
+<!-- ===== 如何正确垃圾分类 ===== -->
+<section id="how" class="py-16 md:py-24 grid-pattern">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="tag-chip bg-emerald-100 text-emerald-700">Chapter 02</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3 text-slate-800">如何正确垃圾分类？</h2>
+      <p class="mt-3 text-slate-600 text-[16px] leading-relaxed">记住四口诀：<b class="text-emerald-700">蓝可回收、绿厨余、红有害、灰其他</b>。一看颜色、二看标志、三查清单。</p>
+    </div>
+
+    <div class="relative mb-10 rounded-3xl overflow-hidden shadow-xl">
+      <img src="http://img0.baidu.com/it/u=3674602719,1009031560&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=667" alt="四色分类垃圾桶" class="w-full h-[260px] md:h-[360px] object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+        <h3 class="text-xl md:text-2xl font-bold">四色桶 · 一眼认出</h3>
+        <p class="text-sm md:text-base opacity-90 mt-1">蓝色-可回收物 / 绿色-厨余垃圾 / 红色-有害垃圾 / 灰色-其他垃圾</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- 可回收 -->
+      <div class="bin-card bg-white rounded-2xl p-5 shadow-md border-t-4 border-sky-500">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center text-2xl">♻️</div>
+          <div>
+            <div class="text-xs text-sky-600 font-semibold">蓝色桶</div>
+            <h3 class="font-bold text-lg text-slate-800">可回收物</h3>
+          </div>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed mb-3">可循环利用、未被污染的废弃物。</p>
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <span class="tag-chip bg-sky-50 text-sky-700">废纸</span>
+          <span class="tag-chip bg-sky-50 text-sky-700">塑料瓶</span>
+          <span class="tag-chip bg-sky-50 text-sky-700">玻璃</span>
+          <span class="tag-chip bg-sky-50 text-sky-700">金属</span>
+          <span class="tag-chip bg-sky-50 text-sky-700">旧衣物</span>
+          <span class="tag-chip bg-sky-50 text-sky-700">小家电</span>
+        </div>
+        <p class="text-xs text-slate-500"><b>要点：</b>清空内容、简单冲洗、压扁投放；快递纸箱去掉胶带。</p>
+      </div>
+
+      <!-- 厨余 -->
+      <div class="bin-card bg-white rounded-2xl p-5 shadow-md border-t-4 border-emerald-500">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center text-2xl">🍎</div>
+          <div>
+            <div class="text-xs text-emerald-600 font-semibold">绿色桶</div>
+            <h3 class="font-bold text-lg text-slate-800">厨余垃圾</h3>
+          </div>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed mb-3">易腐烂的生物质生活废弃物。</p>
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <span class="tag-chip bg-emerald-50 text-emerald-700">剩菜剩饭</span>
+          <span class="tag-chip bg-emerald-50 text-emerald-700">果皮菜叶</span>
+          <span class="tag-chip bg-emerald-50 text-emerald-700">蛋壳茶渣</span>
+          <span class="tag-chip bg-emerald-50 text-emerald-700">骨骼内脏</span>
+          <span class="tag-chip bg-emerald-50 text-emerald-700">过期食品</span>
+        </div>
+        <p class="text-xs text-slate-500"><b>要点：</b>破袋投放、沥干水分；大骨头、榴莲壳、粽子叶属其他垃圾。</p>
+      </div>
+
+      <!-- 有害 -->
+      <div class="bin-card bg-white rounded-2xl p-5 shadow-md border-t-4 border-rose-500">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-rose-100 flex items-center justify-center text-2xl">☣️</div>
+          <div>
+            <div class="text-xs text-rose-600 font-semibold">红色桶</div>
+            <h3 class="font-bold text-lg text-slate-800">有害垃圾</h3>
+          </div>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed mb-3">对人体或环境造成危害的物质。</p>
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <span class="tag-chip bg-rose-50 text-rose-700">废电池</span>
+          <span class="tag-chip bg-rose-50 text-rose-700">废灯管</span>
+          <span class="tag-chip bg-rose-50 text-rose-700">过期药品</span>
+          <span class="tag-chip bg-rose-50 text-rose-700">油漆桶</span>
+          <span class="tag-chip bg-rose-50 text-rose-700">水银温度计</span>
+          <span class="tag-chip bg-rose-50 text-rose-700">杀虫剂</span>
+        </div>
+        <p class="text-xs text-slate-500"><b>要点：</b>轻拿轻放、避免破损；废药品连带包装一起投放。</p>
+      </div>
+
+      <!-- 其他 -->
+      <div class="bin-card bg-white rounded-2xl p-5 shadow-md border-t-4 border-slate-500">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-2xl">🗑️</div>
+          <div>
+            <div class="text-xs text-slate-600 font-semibold">灰色桶</div>
+            <h3 class="font-bold text-lg text-slate-800">其他垃圾</h3>
+          </div>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed mb-3">除以上三类之外的生活垃圾。</p>
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <span class="tag-chip bg-slate-100 text-slate-700">餐巾纸</span>
+          <span class="tag-chip bg-slate-100 text-slate-700">尿不湿</span>
+          <span class="tag-chip bg-slate-100 text-slate-700">烟蒂</span>
+          <span class="tag-chip bg-slate-100 text-slate-700">陶瓷碎片</span>
+          <span class="tag-chip bg-slate-100 text-slate-700">大骨头</span>
+          <span class="tag-chip bg-slate-100 text-slate-700">一次性餐具</span>
+        </div>
+        <p class="text-xs text-slate-500"><b>要点：</b>尽量沥干水分；用垃圾袋装好扎紧后投放。</p>
+      </div>
+    </div>
+
+    <!-- 正确投放步骤 -->
+    <div class="mt-12 glass rounded-3xl p-6 md:p-8 shadow-md">
+      <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+        <span class="w-1.5 h-6 bg-emerald-500 rounded-full"></span>家庭分类四步走
+      </h3>
+      <div class="grid md:grid-cols-4 gap-5">
+        <div class="relative">
+          <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold shadow-lg shadow-emerald-500/30 mb-3">1</div>
+          <h4 class="font-bold text-slate-800 mb-1">在家备桶</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">厨房放厨余桶，客厅/书房放其他+可回收两分桶，小盒收纳有害垃圾。</p>
+        </div>
+        <div class="relative">
+          <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold shadow-lg shadow-emerald-500/30 mb-3">2</div>
+          <h4 class="font-bold text-slate-800 mb-1">随手分类</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">产生即分：厨余沥水入绿桶；纸塑玻金金属单独存放。</p>
+        </div>
+        <div class="relative">
+          <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold shadow-lg shadow-emerald-500/30 mb-3">3</div>
+          <h4 class="font-bold text-slate-800 mb-1">破袋清洁</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">厨余破袋倒入桶中；瓶罐清空冲洗，纸箱拆平捆扎。</p>
+        </div>
+        <div>
+          <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold shadow-lg shadow-emerald-500/30 mb-3">4</div>
+          <h4 class="font-bold text-slate-800 mb-1">定时定点</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">在小区规定时间段到指定投放点，听从督导员引导准确入桶。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 grid md:grid-cols-2 gap-6">
+      <div class="rounded-2xl overflow-hidden shadow-md">
+        <img src="http://img0.baidu.com/it/u=1408991045,3733917146&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500" alt="正确投放" class="w-full h-[220px] object-cover"/>
+      </div>
+      <div class="glass rounded-2xl p-6">
+        <h3 class="font-bold text-lg text-slate-800 mb-3">⚠️ 易混淆物品速记</h3>
+        <ul class="space-y-2 text-[15px] text-slate-700">
+          <li class="flex gap-2"><span class="text-rose-500 font-bold">✗</span> 外卖餐盒若沾满油污 → <b>其他垃圾</b>（无法回收）</li>
+          <li class="flex gap-2"><span class="text-rose-500 font-bold">✗</span> 大骨/榴莲壳/椰子壳/粽子叶 → <b>其他垃圾</b>（难降解、易卡机）</li>
+          <li class="flex gap-2"><span class="text-emerald-500 font-bold">✓</span> 瓜子壳、苹果核、鱼骨鸡骨 → <b>厨余垃圾</b></li>
+          <li class="flex gap-2"><span class="text-emerald-500 font-bold">✓</span> 干净未沾油的塑料袋/快递袋 → <b>可回收物</b></li>
+          <li class="flex gap-2"><span class="text-emerald-500 font-bold">✓</span> 纽扣/充电/手机电池 → <b>有害垃圾</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 如何推广 ===== -->
+<section id="promote" class="py-16 md:py-24 bg-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="tag-chip bg-emerald-100 text-emerald-700">Chapter 03</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3 text-slate-800">如何推广垃圾分类？</h2>
+      <p class="mt-3 text-slate-600 text-[16px] leading-relaxed">从家庭到社区、从学校到单位，人人都是"分类大使"。</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
+        <div class="h-44 bg-gradient-to-br from-emerald-400 to-teal-500 p-6 text-white">
+          <div class="text-4xl mb-2">🏠</div>
+          <h3 class="text-xl font-bold">家庭层面</h3>
+          <p class="text-sm opacity-90 mt-1">先让家里分起来</p>
+        </div>
+        <div class="p-5 bg-white">
+          <ul class="text-sm text-slate-600 space-y-2 leading-relaxed">
+            <li>• 配齐"两桶一袋"（厨余桶、其他桶、可回收袋）</li>
+            <li>• 家长以身作则，带孩子一起分</li>
+            <li>• 在桶边贴分类提示贴纸</li>
+            <li>• 周末家庭"垃圾分类小比赛"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
+        <div class="h-44 bg-gradient-to-br from-sky-400 to-blue-500 p-6 text-white">
+          <div class="text-4xl mb-2">🏘️</div>
+          <h3 class="text-xl font-bold">社区层面</h3>
+          <p class="text-sm opacity-90 mt-1">打造分类友好型小区</p>
+        </div>
+        <div class="p-5 bg-white">
+          <ul class="text-sm text-slate-600 space-y-2 leading-relaxed">
+            <li>• 设置清晰的定时定点投放点与指示牌</li>
+            <li>• 招募"桶边督导员"与志愿者</li>
+            <li>• 定期举办积分兑换、红黑榜公示</li>
+            <li>• 开展"最美分类家庭"评选活动</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
+        <div class="h-44 bg-gradient-to-br from-amber-400 to-orange-500 p-6 text-white">
+          <div class="text-4xl mb-2">🏫</div>
+          <h3 class="text-xl font-bold">校园/单位</h3>
+          <p class="text-sm opacity-90 mt-1">以点带面形成习惯</p>
+        </div>
+        <div class="p-5 bg-white">
+          <ul class="text-sm text-slate-600 space-y-2 leading-relaxed">
+            <li>• 开设垃圾分类主题班会/课程</li>
+            <li>• 楼道、茶水间、食堂配齐四色桶</li>
+            <li>• 组建"环保小卫士"志愿队伍</li>
+            <li>• 无纸化办公、源头减量优先</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 grid md:grid-cols-2 gap-6">
+      <div class="glass rounded-2xl p-6 shadow-md">
+        <h3 class="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2">
+          <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center">📢</span>
+          宣传推广"五个一"
+        </h3>
+        <div class="space-y-3">
+          <div class="flex gap-3 items-start"><div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold shrink-0">1</div>
+            <div><b>一张海报</b>：在单元门、电梯口张贴彩色分类指南。</div></div>
+          <div class="flex gap-3 items-start"><div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold shrink-0">2</div>
+            <div><b>一堂讲座</b>：邀请环卫专家或志愿者进社区讲解。</div></div>
+          <div class="flex gap-3 items-start"><div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold shrink-0">3</div>
+            <div><b>一次活动</b>：亲子分类游戏、旧物交换市集、净滩行动。</div></div>
+          <div class="flex gap-3 items-start"><div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold shrink-0">4</div>
+            <div><b>一支队伍</b>：党员+业委会+物业+志愿者四方联动。</div></div>
+          <div class="flex gap-3 items-start"><div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold shrink-0">5</div>
+            <div><b>一套激励</b>：正确投放积分，可兑换日用品、物业费抵扣。</div></div>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 shadow-md">
+        <h3 class="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2">
+          <span class="w-8 h-8 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center">📱</span>
+          新媒体/线上推广
+        </h3>
+        <ul class="space-y-3 text-[15px] text-slate-700 leading-relaxed">
+          <li>🎬 <b>短视频</b>：拍摄"一分钟学会分类""纠错现场"等趣味内容。</li>
+          <li>💬 <b>社群运营</b>：业主群每日一题，晒分类赢小红包。</li>
+          <li>🗺️ <b>小程序</b>：上线"垃圾分类查询"工具，拍照/文字即查。</li>
+          <li>🎮 <b>互动游戏</b>：H5分类小游戏、AR扫描识别垃圾类型。</li>
+          <li>📰 <b>典型故事</b>：挖掘社区榜样人物，以身边事带动身边人。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 推广策略雷达 -->
+    <div class="mt-10 glass rounded-2xl p-6 md:p-8 shadow-md">
+      <h3 class="font-bold text-lg text-slate-800 mb-2">推广策略效果矩阵</h3>
+      <p class="text-sm text-slate-500 mb-4">不同推广手段在成本、覆盖面、参与度、持续性上的综合表现（10分制，参考值）。</p>
+      <div id="chartPromote" style="height:340px;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 困难与帮助 ===== -->
+<section id="help" class="py-16 md:py-24 bg-gradient-to-b from-slate-50 to-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="tag-chip bg-emerald-100 text-emerald-700">Chapter 04</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3 text-slate-800">遇到困难？我们来帮你</h2>
+      <p class="mt-3 text-slate-600 text-[16px] leading-relaxed">分类不会分？老人不会用？桶边有异味？这里有常见问题的解决方案与求助渠道。</p>
+    </div>
+
+    <!-- 困难-方案 对照卡片 -->
+    <div class="grid md:grid-cols-2 gap-5 mb-10">
+      <div class="glass rounded-2xl p-6 shadow-sm border-l-4 border-rose-400">
+        <div class="flex items-center gap-2 mb-2"><span class="text-rose-500">😵</span><h4 class="font-bold text-slate-800">"总是分不清，记不住"</h4></div>
+        <p class="text-sm text-slate-600 leading-relaxed"><b>解决方案：</b>手机下载"垃圾分类"小程序/公众号，输入垃圾名一键查询；冰箱贴一张分类速查表；拿不准时先放"其他垃圾"，别让可回收物被污染比分错更重要。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 shadow-sm border-l-4 border-amber-400">
+        <div class="flex items-center gap-2 mb-2"><span class="text-amber-500">👵</span><h4 class="font-bold text-slate-800">"家里老人/小孩不会分"</h4></div>
+        <p class="text-sm text-slate-600 leading-relaxed"><b>解决方案：</b>在家用大号彩色标签贴桶；子女回家时先帮着分好；社区可组织"小手拉大手"活动，让小朋友教爷爷奶奶。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 shadow-sm border-l-4 border-sky-400">
+        <div class="flex items-center gap-2 mb-2"><span class="text-sky-500">⏰</span><h4 class="font-bold text-slate-800">"定时投放赶不上时间"</h4></div>
+        <p class="text-sm text-slate-600 leading-relaxed"><b>解决方案：</b>家中准备密封小桶暂存厨余，2-3天下楼一次；可向物业/居委会建议增设误时投放点或自助投放柜。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 shadow-sm border-l-4 border-emerald-400">
+        <div class="flex items-center gap-2 mb-2"><span class="text-emerald-500">🦟</span><h4 class="font-bold text-slate-800">"厨余桶臭、招虫子"</h4></div>
+        <p class="text-sm text-slate-600 leading-relaxed"><b>解决方案：</b>沥干汤水再倒；用带盖小桶、每日冲洗；铺一层纸巾/小苏打吸味；夏天冷冻暂存，出门时带走。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 shadow-sm border-l-4 border-purple-400">
+        <div class="flex items-center gap-2 mb-2"><span class="text-purple-500">🛍️</span><h4 class="font-bold text-slate-800">"外卖/快递包装太复杂"</h4></div>
+        <p class="text-sm text-slate-600 leading-relaxed"><b>解决方案：</b>剩菜倒厨余、餐盒丢其他、未沾油塑料盖可回收；快递纸箱拆平去胶纸投可回收；尽量选择"无需餐具"、简约包装。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 shadow-sm border-l-4 border-teal-400">
+        <div class="flex items-center gap-2 mb-2"><span class="text-teal-500">🏢</span><h4 class="font-bold text-slate-800">"单位/小区不重视、设施不全"</h4></div>
+        <p class="text-sm text-slate-600 leading-relaxed"><b>解决方案：</b>向物业/业委会/工会提案要求配齐四色桶；通过12345市民热线反馈；志愿者带头，做给大家看。</p>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="glass rounded-2xl p-6 md:p-8 shadow-md">
+      <h3 class="text-xl font-bold text-slate-800 mb-5 flex items-center gap-2">
+        <span class="w-1.5 h-6 bg-emerald-500 rounded-full"></span>常见问题 FAQ
+      </h3>
+      <div class="divide-y divide-slate-200">
+        <details class="py-4 group">
+          <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-800">
+            <span>Q1：外卖奶茶杯怎么扔？</span>
+            <svg class="arrow w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p class="mt-2 text-[15px] text-slate-600 leading-relaxed">先将剩余奶茶/液体倒入下水道，珍珠果粒等倒入厨余垃圾；杯子若有防油防水涂层（多数纸杯都有）且被污染 → <b>其他垃圾</b>；塑料杯盖洗净可投可回收。</p>
+        </details>
+        <details class="py-4 group">
+          <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-800">
+            <span>Q2：口罩、消毒湿巾属于什么垃圾？</span>
+            <svg class="arrow w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p class="mt-2 text-[15px] text-slate-600 leading-relaxed">日常生活中使用过的口罩、湿巾、棉签、一次性手套均属于 <b>其他垃圾</b>。请用密封袋包好再投放，降低传播风险。</p>
+        </details>
+        <details class="py-4 group">
+          <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-800">
+            <span>Q3：宠物粪便怎么处理？</span>
+            <svg class="arrow w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p class="mt-2 text-[15px] text-slate-600 leading-relaxed">宠物粪便不宜进入厨余系统，建议用纸巾捡好后投入 <b>其他垃圾</b>；猫砂、狗尿垫同样归其他垃圾。最好的方式是带回家冲入马桶。</p>
+        </details>
+        <details class="py-4 group">
+          <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-800">
+            <span>Q4：过期化妆品/护肤品是什么垃圾？</span>
+            <svg class="arrow w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p class="mt-2 text-[15px] text-slate-600 leading-relaxed">一般护肤品、化妆品属于 <b>其他垃圾</b>；指甲油、洗甲水、染发剂含化学溶剂 → <b>有害垃圾</b>；用完的干净玻璃/塑料瓶身 → <b>可回收</b>。</p>
+        </details>
+        <details class="py-4 group">
+          <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-800">
+            <span>Q5：旧衣服、旧被子怎么处理？</span>
+            <svg class="arrow w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <p class="mt-2 text-[15px] text-slate-600 leading-relaxed">干净可再穿的衣物建议捐到小区旧衣回收箱、公益机构（属可回收物）；脏破严重无法再用的，投 <b>其他垃圾</b>，不要丢进可回收桶以免污染其他织物。</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 求助渠道 -->
+    <div class="mt-10 grid md:grid-cols-3 gap-5">
+      <div class="rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg">
+        <div class="text-3xl mb-2">📞</div>
+        <h4 class="font-bold text-lg mb-1">市民热线</h4>
+        <p class="text-sm opacity-90 mb-3">对分类设施、收运服务有意见建议</p>
+        <div class="text-2xl font-black tracking-wider">12345</div>
+      </div>
+      <div class="rounded-2xl p-6 bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg">
+        <div class="text-3xl mb-2">🏘️</div>
+        <h4 class="font-bold text-lg mb-1">社区/物业</h4>
+        <p class="text-sm opacity-90 mb-3">桶位设置、督导员、积分兑换</p>
+        <div class="text-base font-semibold">联系居委会/物业前台</div>
+      </div>
+      <div class="rounded-2xl p-6 bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg">
+        <div class="text-3xl mb-2">📱</div>
+        <h4 class="font-bold text-lg mb-1">在线查询</h4>
+        <p class="text-sm opacity-90 mb-3">拿不准的垃圾扫一扫、查一查</p>
+        <div class="text-base font-semibold">"垃圾分类"小程序/公众号</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 小测试互动 ===== -->
+<section id="quiz" class="py-16 md:py-24 bg-white relative" style="min-height:600px;z-index:5;">
+  <div class="max-w-4xl mx-auto px-4 relative" style="z-index:5;">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <span class="tag-chip bg-emerald-100 text-emerald-700">互动时刻</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3 text-slate-800">分类小测试 · 你能拿几分？</h2>
+      <p class="mt-3 text-slate-600 text-[16px]">5道小题，边玩边记。点击选项即刻判断对错。</p>
+    </div>
+
+    <div id="quizBox" class="glass rounded-3xl p-6 md:p-10 shadow-lg">
+      <div class="flex items-center justify-between mb-5">
+        <div class="text-sm text-slate-500">题目 <span id="qIndex" class="font-bold text-emerald-600">1</span> / 5</div>
+        <div class="text-sm text-slate-500">得分：<span id="qScore" class="font-bold text-emerald-600">0</span></div>
+      </div>
+      <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden mb-6">
+        <div id="qProgress" class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 transition-all" style="width:20%"></div>
+      </div>
+      <h3 id="qTitle" class="text-xl md:text-2xl font-bold text-slate-800 mb-5">1. 擦过嘴的纸巾属于什么垃圾？</h3>
+      <div id="qOptions" class="grid gap-3">
+        <button type="button" id="quiz-opt-0" data-idx="0" class="quiz-opt w-full text-left px-5 py-3.5 rounded-xl border-2 border-sky-300 bg-white text-slate-700 font-medium">A. 可回收物</button>
+        <button type="button" id="quiz-opt-1" data-idx="1" class="quiz-opt w-full text-left px-5 py-3.5 rounded-xl border-2 border-emerald-300 bg-white text-slate-700 font-medium">B. 厨余垃圾</button>
+        <button type="button" id="quiz-opt-2" data-idx="2" class="quiz-opt w-full text-left px-5 py-3.5 rounded-xl border-2 border-rose-300 bg-white text-slate-700 font-medium">C. 有害垃圾</button>
+        <button type="button" id="quiz-opt-3" data-idx="3" class="quiz-opt w-full text-left px-5 py-3.5 rounded-xl border-2 border-slate-300 bg-white text-slate-700 font-medium">D. 其他垃圾</button>
+      </div>
+      <div id="qFeedback" class="mt-5 text-[15px] font-medium min-h-[28px]"></div>
+      <div class="mt-6 flex justify-between items-center">
+        <button id="qRestart" class="px-4 py-2 rounded-lg text-sm text-slate-600 hover:bg-slate-100 hidden">↻ 重新开始</button>
+        <button id="qNext" type="button" class="ml-auto px-6 py-2.5 rounded-lg bg-emerald-500 text-white font-semibold shadow hover:bg-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed" disabled>下一题 →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA / Footer ===== -->
+<section class="py-16 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white text-center relative overflow-hidden" style="isolation:isolate;">
+  <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image:radial-gradient(white 1px,transparent 1px);background-size:30px 30px;"></div>
+  <div class="relative max-w-3xl mx-auto px-4">
+    <div class="text-5xl mb-4">🌍♻️💚</div>
+    <h2 class="text-3xl md:text-4xl font-black mb-4">今天分一分，明天美十分</h2>
+    <p class="text-base md:text-lg opacity-95 leading-relaxed mb-8">垃圾分类不是一阵子的事，而是一辈子的习惯。从你我做起，从每一次投放做起，让我们一起为地球"减"负。</p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <span class="px-4 py-2 rounded-full bg-white/20 backdrop-blur text-sm">🔄 源头减量</span>
+      <span class="px-4 py-2 rounded-full bg-white/20 backdrop-blur text-sm">♻️ 循环利用</span>
+      <span class="px-4 py-2 rounded-full bg-white/20 backdrop-blur text-sm">🌱 低碳生活</span>
+      <span class="px-4 py-2 rounded-full bg-white/20 backdrop-blur text-sm">🤝 共建共享</span>
+    </div>
+  </div>
+</section>
+
+<footer class="py-8 bg-slate-900 text-slate-400 text-center text-sm">
+  <p>© 绿动分类 · 环保公益科普页面 · 让垃圾分类成为一种生活方式</p>
+  <p class="mt-1 text-xs text-slate-500">本页内容仅供科普参考，各地分类标准可能略有差异，请以当地环卫部门指引为准。</p>
+</footer>
+
+<script>
+/* ===== 数字滚动动画 ===== */
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const target=+el.dataset.count;
+  let cur=0;const step=Math.max(1,Math.ceil(target/40));
+  const t=setInterval(()=>{
+    cur+=step;
+    if(cur>=target){cur=target;clearInterval(t);}
+    el.textContent=cur;
+  },30);
+});
+
+/* ===== ECharts: 城市垃圾年产量 ===== */
+const c1=echarts.init(document.getElementById('chartWhy'));
+c1.setOption({
+  grid:{left:40,right:20,top:30,bottom:30},
+  tooltip:{trigger:'axis',backgroundColor:'rgba(255,255,255,.95)',borderColor:'#10b981',textStyle:{color:'#0f172a'}},
+  xAxis:{type:'category',data:['2018','2019','2020','2021','2022','2023','2024','2025'],axisLine:{lineStyle:{color:'#cbd5e1'}},axisLabel:{color:'#64748b'}},
+  yAxis:{type:'value',name:'亿吨',nameTextStyle:{color:'#94a3b8'},axisLabel:{color:'#64748b'},splitLine:{lineStyle:{color:'#e2e8f0',type:'dashed'}}},
+  series:[{
+    name:'年清运量',type:'line',smooth:true,
+    data:[2.28,2.42,2.35,2.49,2.59,2.68,2.75,2.81],
+    lineStyle:{width:3,color:'#10b981'},
+    itemStyle:{color:'#10b981'},
+    areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(16,185,129,.35)'},{offset:1,color:'rgba(16,185,129,0)'}])},
+    symbol:'circle',symbolSize:7
+  }]
+});
+
+/* ===== ECharts: 推广策略雷达 ===== */
+const c2=echarts.init(document.getElementById('chartPromote'));
+c2.setOption({
+  tooltip:{},
+  legend:{data:['桶边督导','积分激励','新媒体宣传','校园教育','志愿活动'],bottom:0,textStyle:{color:'#475569'}},
+  radar:{
+    shape:'polygon',
+    indicator:[
+      {name:'成本低',max:10},
+      {name:'覆盖面广',max:10},
+      {name:'参与度高',max:10},
+      {name:'持续性强',max:10},
+      {name:'见效快',max:10}
+    ],
+    axisName:{color:'#475569'},
+    splitArea:{areaStyle:{color:['rgba(16,185,129,.02)','rgba(16,185,129,.06)']}}
+  },
+  series:[{
+    type:'radar',
+    data:[
+      {name:'桶边督导',value:[8,6,9,8,9],areaStyle:{color:'rgba(16,185,129,.2)'},lineStyle:{color:'#10b981'},itemStyle:{color:'#10b981'}},
+      {name:'积分激励',value:[5,8,8,9,7],areaStyle:{color:'rgba(59,130,246,.15)'},lineStyle:{color:'#3b82f6'},itemStyle:{color:'#3b82f6'}},
+      {name:'新媒体宣传',value:[9,9,6,6,5],areaStyle:{color:'rgba(245,158,11,.15)'},lineStyle:{color:'#f59e0b'},itemStyle:{color:'#f59e0b'}},
+      {name:'校园教育',value:[6,7,8,10,4],areaStyle:{color:'rgba(236,72,153,.15)'},lineStyle:{color:'#ec4899'},itemStyle:{color:'#ec4899'}},
+      {name:'志愿活动',value:[8,5,9,6,8],areaStyle:{color:'rgba(139,92,246,.15)'},lineStyle:{color:'#8b5cf6'},itemStyle:{color:'#8b5cf6'}}
+    ]
+  }]
+});
+window.addEventListener('resize',()=>{c1.resize();c2.resize();});
+
+/* ===== 小测试 ===== */
+const quiz=[
+  {q:'擦过嘴的纸巾属于什么垃圾？',opts:['可回收物','厨余垃圾','有害垃圾','其他垃圾'],ans:3,tip:'纸巾遇水即碎、沾有油污，无法回收，属于其他垃圾。'},
+  {q:'吃剩的鱼骨头应该丢进？',opts:['其他垃圾','厨余垃圾','有害垃圾','可回收物'],ans:1,tip:'小型易腐的鱼骨、鸡骨属于厨余垃圾；大棒骨因难降解属其他垃圾。'},
+  {q:'废旧纽扣电池属于？',opts:['可回收物','有害垃圾','其他垃圾','厨余垃圾'],ans:1,tip:'电池含重金属，属于有害垃圾，应单独投放。'},
+  {q:'未开封的干净快递纸箱应投放至？',opts:['其他垃圾','厨余垃圾','可回收物','有害垃圾'],ans:2,tip:'拆开压扁、去除胶带后属于可回收物，是优质的造纸原料。'},
+  {q:'过期感冒药连带包装应该丢进？',opts:['有害垃圾','其他垃圾','厨余垃圾','可回收物'],ans:0,tip:'过期药品及其包装都属于有害垃圾，避免污染土壤和水源。'}
+];
+let qCur=0,qScore=0,qAnswered=false;
+const qTitle=document.getElementById('qTitle'),qOpts=document.getElementById('qOptions'),qFb=document.getElementById('qFeedback'),qNext=document.getElementById('qNext'),qIdx=document.getElementById('qIndex'),qSc=document.getElementById('qScore'),qPr=document.getElementById('qProgress'),qRe=document.getElementById('qRestart');
+function renderQ(){
+  qAnswered=false;qFb.textContent='';qNext.disabled=true;qNext.classList.remove('hidden');qRe.classList.add('hidden');
+  qNext.textContent=qCur===quiz.length-1?'查看结果 →':'下一题 →';
+  qIdx.textContent=qCur+1;qSc.textContent=qScore;qPr.style.width=((qCur)/quiz.length*100)+'%';
+  const it=quiz[qCur];qTitle.textContent=(qCur+1)+'. '+it.q;
+  qOpts.innerHTML='';
+  const colors=['border-sky-300','border-emerald-300','border-rose-300','border-slate-300'];
+  it.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='quiz-opt w-full text-left px-5 py-3.5 rounded-xl border-2 bg-white text-slate-700 font-medium '+colors[i];
+    b.textContent=String.fromCharCode(65+i)+'. '+o;
+    b.onclick=()=>{
+      [...qOpts.children].forEach((c,idx)=>{if(idx===it.ans)c.classList.add('correct');});
+      if(i===it.ans){
+        if(!b.classList.contains('correct')&&!b.classList.contains('wrong')){qScore++;}
+        b.classList.add('correct');qFb.innerHTML='<span class="text-emerald-600">✅ 回答正确！</span>'+it.tip;
+      }else{
+        b.classList.add('wrong');qFb.innerHTML='<span class="text-rose-600">❌ 答错啦～</span> 正确答案是 '+String.fromCharCode(65+it.ans)+'。'+it.tip;
+      }
+      qAnswered=true;
+      qSc.textContent=qScore;qNext.disabled=false;
+    };
+    qOpts.appendChild(b);
+  });
+}
+qNext.onclick=()=>{
+  if(qCur<quiz.length-1){qCur++;renderQ();}
+  else{
+    qPr.style.width='100%';qIdx.textContent=quiz.length;qSc.textContent=qScore;
+    let msg='';
+    if(qScore===5)msg='🏆 满分！你就是分类达人，快把知识分享给朋友吧！';
+    else if(qScore>=3)msg='👍 不错哦，基础扎实，再看一眼易错点就能拿满分～';
+    else msg='📚 没关系，回到上面的分类指南再复习一下，你一定能行！';
+    qTitle.textContent='测试结束！你答对了 '+qScore+' / '+quiz.length+' 题';
+    qOpts.innerHTML='';qFb.innerHTML='<div class="rounded-xl p-4 bg-emerald-50 text-emerald-700 text-base font-semibold">'+msg+'</div>';
+    qNext.classList.add('hidden');qRe.classList.remove('hidden');
+  }
+};
+qRe.onclick=()=>{qCur=0;qScore=0;qNext.classList.remove('hidden');qRe.classList.add('hidden');
+  qIdx.textContent=1;qSc.textContent=0;qPr.style.width='0%';
+  qTitle.textContent='1. 擦过嘴的纸巾属于什么垃圾？';qFb.textContent='';qNext.disabled=true;
+  qOpts.querySelectorAll('button').forEach((b,i)=>{b.classList.remove('correct','wrong');});
+  bindInitialQ();
+};
+function bindInitialQ(){
+  const it=quiz[0];
+  qOpts.querySelectorAll('button').forEach(btn=>{
+    btn.onclick=()=>{
+      const i=+btn.dataset.idx;
+      [...qOpts.children].forEach((c,idx)=>{if(idx===it.ans)c.classList.add('correct');});
+      if(i===it.ans){
+        if(!btn.classList.contains('correct')&&!btn.classList.contains('wrong')){qScore++;}
+        btn.classList.add('correct');qFb.innerHTML='<span class="text-emerald-600">✅ 回答正确！</span>'+it.tip;
+      }else{
+        btn.classList.add('wrong');qFb.innerHTML='<span class="text-rose-600">❌ 答错啦～</span> 正确答案是 '+String.fromCharCode(65+it.ans)+'。'+it.tip;
+      }
+      qAnswered=true;
+      qSc.textContent=qScore;qNext.disabled=false;
+    };
+  });
+}
+bindInitialQ();
+</script>
 </body>
 </html>
+<!--10023080362573747210082222--><!--10097234362395614730082222--><!--10150577502573747210082222--><!--10385681342395614730082222--><!--10429249732573747210082222--><!--10505497722573747210082222--><!--10871179392573747210082222--><!--10916385472573747210082222--><!--11198250642395614730082222--><!--11475567602395614730082222--><!--11648683332573747210082222--><!--11796840492395614730082222--><!--11860714542395614730082222--><!--12150441092395614730082222--><!--12196198892395614730082222--><!--12687037932395614730082222--><!--13045605382573747210082222--><!--13410620772573747210082222--><!--13884551382573747210082222--><!--13948132852395614730082222--><!--14022085342573747210082222--><!--14248917062395614730082222--><!--14329289152573747210082222--><!--14564627612395614730082222-->
